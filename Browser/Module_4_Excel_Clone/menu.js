@@ -11,6 +11,3 @@ fontSizeInput.addEventListener("change", function () {
     tobeChangedCell.style.fontSize = fontSize+"px";
 })
 // select -> fontFamily
-© 2021 GitHub, Inc.
-Terms
-Privacy
