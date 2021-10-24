@@ -1,4 +1,5 @@
 
+
 // print it to -> address bar
 // top row cells creation
 let topRow = document.querySelector(".top_row");
