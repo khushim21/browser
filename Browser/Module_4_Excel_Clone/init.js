@@ -8,6 +8,7 @@ let leftCol = document.querySelector(".left_col");
 // grid
 let grid = document.querySelector(".grid");
 let addressInput = document.querySelector(".address_input");
+let formulaInput = document.querySelector(".formula_input");
 
 // *************************Menu Elements *****************************
 let fontSizeInput = document.querySelector(".font_size_input");
@@ -54,24 +55,31 @@ for (let i = 0; i < 100; i++) {
 }
 // default value put for every cell
 let db = [];
-for (let i = 0; i < 100; i++) {
-    let rowArr = [];
-    for (let j = 0; j < 26; j++) {
-        let cellObject = {
-            color: "black",
-            backgroundColor: "white",
-            fontFamily: "'Courier New'",
-            fontSize: 14,
-            halign: "center",
-            italic: false,
-            underline: false,
-            bold: false
+
+function initDB() {
+    for (let i = 0; i < 100; i++) {
+        let rowArr = [];
+        for (let j = 0; j < 26; j++) {
+            let cellObject = {
+                color: "black",
+                backgroundColor: "white",
+                fontFamily: "'Courier New'",
+                fontSize: 14,
+                halign: "center",
+                italic: false,
+                underline: false,
+                bold: false,
+                value: "",
+                formula: "",
+                children: []
+            }
+            rowArr.push(cellObject)
         }
-        rowArr.push(cellObject)
+        db.push(rowArr);
     }
-    db.push(rowArr);
 }
-console.log(db);
+initDB();
+// console.log(db);
 // if i click on any of the cells
 let AllGridCells = document.querySelectorAll(".grid .cell");
 for (let i = 0; i < AllGridCells.length; i++) {
@@ -127,13 +135,17 @@ for (let i = 0; i < AllGridCells.length; i++) {
         }
         if (cellObject.halign) {
             for (let i = 0; i < optionElements.length; i++) {
-                let elementClasses=optionElements[i].classList;
+                let elementClasses = optionElements[i].classList;
                 let hAlignment = elementClasses[elementClasses.length - 1];
                 if (hAlignment == cellObject.halign) {
                     elementClasses.add("selected");
                 }
             }
         }
+
+
+        formulaInput.value = cellObject.formula
+
     })
 }
 // get first elem
