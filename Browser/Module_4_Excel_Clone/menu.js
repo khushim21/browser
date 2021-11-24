@@ -1,3 +1,4 @@
+
 textColorInput.addEventListener("click", function (e) {
     //dom help hidden click trigger 
     textColorHInput.click();
@@ -29,7 +30,7 @@ backgroundHInput.addEventListener("change", function (e) {
         (`.grid .cell[rId='${ridcidObj.rid}'][cId='${ridcidObj.cid}']`);
     tobeChangedCell.style.backgroundColor = color;
     let { rid, cid } = getRidCidFromAddress(address);
-    db[rid][cid].color = color;
+    db[rid][cid].backgroundColor = color;
 })
 // change
 fontSizeInput.addEventListener("change", function () {
