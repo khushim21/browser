@@ -21,7 +21,9 @@ let textColorHInput = document.querySelector(".text_color");
 let textColorInput = document.querySelector(".fa-tint");
 let backgroundHInput = document.querySelector(".background_color");
 let backgroundInput = document.querySelector(".fa-fill-drip");
-
+let createSheetIcon = document.querySelector(".fa-plus");
+let sheetList = document.querySelector(".sheets-list");
+let firstSheet = document.querySelector(".sheet");
 for (let i = 0; i < 26; i++) {
     let div = document.createElement("div");
     div.setAttribute("class", "cell");
@@ -54,9 +56,9 @@ for (let i = 0; i < 100; i++) {
     grid.appendChild(row)
 }
 // default value put for every cell
-let db = [];
-
+let sheetsDb = [];
 function initDB() {
+    let db = [];
     for (let i = 0; i < 100; i++) {
         let rowArr = [];
         for (let j = 0; j < 26; j++) {
@@ -77,8 +79,10 @@ function initDB() {
         }
         db.push(rowArr);
     }
+    sheetsDb.push(db);
 }
 initDB();
+let db = sheetsDb[0];
 // console.log(db);
 // if i click on any of the cells
 let AllGridCells = document.querySelectorAll(".grid .cell");
@@ -147,6 +151,7 @@ for (let i = 0; i < AllGridCells.length; i++) {
         formulaInput.value = cellObject.formula
 
     })
+
 }
 // get first elem
 let firstCell = document.querySelector(".grid .cell[rId='0'][cId='0']");
@@ -162,4 +167,63 @@ function getRidCidFromAddress(address) {
         rid: rid, cid: cid
     }
 
+}
+
+
+
+
+
+firstSheet.addEventListener("click", function (e) {
+    //    list of sheet me se sabme se aap remove active sheet
+    for (let i = 0; i < sheetList.children.length; i++) {
+        sheetList.children[i].classList.remove("active-sheet")
+    }
+    // given sheet add kar lo 
+    firstSheet.classList.add("active-sheet");
+    db = sheetsDb[0];
+    setinitUI();
+
+})
+
+createSheetIcon.addEventListener("click", sheetHandler);
+function sheetHandler() {
+    let noofChildren = sheetList.children.length;
+    // dom se create 
+    let newSheet = document.createElement("div");
+    newSheet.setAttribute("class", "sheet");
+    newSheet.setAttribute("sheetIdx", noofChildren);
+    newSheet.textContent = `Sheet ${noofChildren + 1}`
+    sheetList.appendChild(newSheet);
+    initDB();
+    // active me switch
+    newSheet.addEventListener("click", function () {
+        for (let i = 0; i < sheetList.children.length; i++) {
+            sheetList.children[i].classList.remove("active-sheet")
+        }
+        newSheet.classList.add("active-sheet");
+        let idx = newSheet.getAttribute("sheetIdx");
+        db = sheetsDb[idx];
+        setinitUI();
+    })
+}
+
+function sheetOpenHandler() {
+    let noofChildren = sheetList.children.length;
+    // dom se create 
+    let newSheet = document.createElement("div");
+    newSheet.setAttribute("class", "sheet");
+    newSheet.setAttribute("sheetIdx", noofChildren);
+    newSheet.textContent = `Sheet ${noofChildren + 1}`
+    sheetList.appendChild(newSheet);
+    // initDB();
+    // active me switch
+    newSheet.addEventListener("click", function () {
+        for (let i = 0; i < sheetList.children.length; i++) {
+            sheetList.children[i].classList.remove("active-sheet")
+        }
+        newSheet.classList.add("active-sheet");
+        let idx = newSheet.getAttribute("sheetIdx");
+        db = sheetsDb[idx];
+        setinitUI();
+    })
 }
